@@ -7,8 +7,15 @@ const Context=createContext<Store|undefined>(undefined);
 export function SkyarthProvider({children}:{children:ReactNode}) {
  const [data,setData]=useState({properties:initialProperties,services:initialServices,projects:initialProjects,testimonials:initialTestimonials,categories:initialCategories,enquiries:initialEnquiries,settings:initialSettings,hero:initialHero,about:initialAbout,why:initialWhy});
  const [loggedIn,setLoggedIn]=useState(false);
- const save=(collection:Collection,item:Entity)=>setData(prev=>({...prev,[collection]:prev[collection].some(x=>x.id===item.id)?prev[collection].map(x=>x.id===item.id?item:x):[...prev[collection],item]}));
- const remove=(collection:Collection,id:string)=>setData(prev=>({...prev,[collection]:prev[collection].filter(x=>x.id!==id)}));
+ const save=(collection:Collection,item:Entity)=>setData(prev=>{
+  if(collection==='properties') { const next=item as Property; return {...prev,properties:prev.properties.some(x=>x.id===next.id)?prev.properties.map(x=>x.id===next.id?next:x):[...prev.properties,next]}; }
+  const current=prev[collection] as Entity[];
+  return {...prev,[collection]:current.some(x=>x.id===item.id)?current.map(x=>x.id===item.id?item:x):[...current,item]};
+ });
+ const remove=(collection:Collection,id:string)=>setData(prev=>{
+  if(collection==='properties')return {...prev,properties:prev.properties.filter(x=>x.id!==id)};
+  return {...prev,[collection]:(prev[collection] as Entity[]).filter(x=>x.id!==id)};
+ });
  const updateContent=(key:ContentKey,item:Entity)=>setData(prev=>({...prev,[key]:item}));
  const addEnquiry=(item:Omit<Entity,'id'>)=>save('enquiries',{...item,id:`enquiry-${Date.now()}`,name:String(item.name||'Visitor'),date:new Date().toISOString().slice(0,10),status:'New'});
  return <Context.Provider value={{...data,loggedIn,setLoggedIn,save,remove,updateContent,addEnquiry}}>{children}</Context.Provider>;
