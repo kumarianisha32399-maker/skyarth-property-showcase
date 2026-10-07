@@ -14,6 +14,8 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as WhySkyarthRouteImport } from './routes/why-skyarth'
+import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
 import { Route as ProjectsProjectIdRouteImport } from './routes/projects.$projectId'
 import { Route as PropertiesIndexRouteImport } from './routes/properties.index'
@@ -44,6 +46,16 @@ const WhySkyarthRoute = WhySkyarthRouteImport.update({
   path: '/why-skyarth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/admin/dashboard',
+  path: '/admin/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
   id: '/projects/',
   path: '/projects/',
@@ -71,6 +83,8 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
   '/why-skyarth': typeof WhySkyarthRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/login': typeof AdminLoginRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/properties/$propertyId': typeof PropertiesPropertyIdRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -82,6 +96,8 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
   '/why-skyarth': typeof WhySkyarthRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/login': typeof AdminLoginRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/properties/$propertyId': typeof PropertiesPropertyIdRoute
   '/projects': typeof ProjectsIndexRoute
@@ -94,6 +110,8 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
   '/why-skyarth': typeof WhySkyarthRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/login': typeof AdminLoginRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/properties/$propertyId': typeof PropertiesPropertyIdRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -107,6 +125,8 @@ export interface FileRouteTypes {
     | '/contact'
     | '/services'
     | '/why-skyarth'
+    | '/admin/dashboard'
+    | '/admin/login'
     | '/projects/$projectId'
     | '/properties/$propertyId'
     | '/projects/'
@@ -118,6 +138,8 @@ export interface FileRouteTypes {
     | '/contact'
     | '/services'
     | '/why-skyarth'
+    | '/admin/dashboard'
+    | '/admin/login'
     | '/projects/$projectId'
     | '/properties/$propertyId'
     | '/projects'
@@ -129,6 +151,8 @@ export interface FileRouteTypes {
     | '/contact'
     | '/services'
     | '/why-skyarth'
+    | '/admin/dashboard'
+    | '/admin/login'
     | '/projects/$projectId'
     | '/properties/$propertyId'
     | '/projects/'
@@ -141,6 +165,8 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   ServicesRoute: typeof ServicesRoute
   WhySkyarthRoute: typeof WhySkyarthRoute
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminLoginRoute: typeof AdminLoginRoute
   ProjectsProjectIdRoute: typeof ProjectsProjectIdRoute
   PropertiesPropertyIdRoute: typeof PropertiesPropertyIdRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
@@ -184,6 +210,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WhySkyarthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/admin/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects/': {
       id: '/projects/'
       path: '/projects'
@@ -221,6 +261,8 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   ServicesRoute: ServicesRoute,
   WhySkyarthRoute: WhySkyarthRoute,
+  AdminDashboardRoute: AdminDashboardRoute,
+  AdminLoginRoute: AdminLoginRoute,
   ProjectsProjectIdRoute: ProjectsProjectIdRoute,
   PropertiesPropertyIdRoute: PropertiesPropertyIdRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
